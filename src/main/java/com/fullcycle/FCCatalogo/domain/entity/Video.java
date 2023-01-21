@@ -18,6 +18,9 @@ public class Video extends BaseEntity {
     private List<Category> categories = new ArrayList<Category>();
     private List<Genre> genres = new ArrayList<Genre>();
     private List<CastMember> castMembers = new ArrayList<CastMember>();
+    private List<VideoFile> videoFiles = new ArrayList<VideoFile>();
+
+   
 
     // public Video() {}
 
@@ -55,13 +58,22 @@ public class Video extends BaseEntity {
         this.setDuration(duration);
     }
 
+    public Video(String title, String description, Integer yearLauncher, Float duration, List<VideoFile> videosFiles) {
+        super.generetaUUID();
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setYearLaunched(yearLauncher);
+        this.setDuration(duration);
+        this.setVideoFiles(videosFiles);
+    }
+
     public String getTitle() {
-        if (title == null)  throw new IllegalArgumentException("title is marked non-null but is null");
-        if (title.length() == 0) throw new IllegalArgumentException("title is marked non-blank but is blank");
         return this.title;
     }
 
     public void setTitle(String title) {
+        if (title == null)  throw new IllegalArgumentException("title is marked non-null but is null");
+        if (title.length() == 0) throw new IllegalArgumentException("title is marked non-blank but is blank");
         this.title = title;
     }
 
@@ -105,11 +117,12 @@ public class Video extends BaseEntity {
 
     public Float getDuration() {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        this.duration = Float.valueOf(decimalFormat.format(duration));
-        return this.duration;
+        return Float.valueOf(decimalFormat.format(duration));
     }
 
     public void setDuration(Float duration) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        this.duration = Float.valueOf(decimalFormat.format(duration));
         this.duration = duration;
     }
 
@@ -168,5 +181,39 @@ public class Video extends BaseEntity {
     public void removeCastMembers(CastMember member) {
         if (member == null)  throw new IllegalArgumentException("member is marked non-null but is null");
         this.castMembers.removeIf(c -> this.castMembers.contains(member));
+    }
+
+    public List<VideoFile> getVideoFiles() {
+        return this.videoFiles;
+    }
+
+    public void setVideoFiles(List<VideoFile> files) {
+        if (files == null)  throw new IllegalArgumentException("videfilesoFiles is marked non-null but is null");
+        this.videoFiles = files;
+    }
+
+    public Video createVideoWithFiles(String title, String description, Integer yearLauncher, Float duration, List<Category> categories,  List<Genre> genres,  List<CastMember> castMembers, List<VideoFile> videosFiles) {
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setYearLaunched(yearLauncher);
+        this.setDuration(duration);
+        this.setCategories(categories);
+        this.setGenres(genres);
+        this.setCastMembers(castMembers);
+        this.setVideoFiles(videosFiles);
+
+        return this;
+    }
+
+    public Video createVideoWithoutFiles(String title, String description, Integer yearLauncher, Float duration, List<Category> categories,  List<Genre> genres,  List<CastMember> castMembers) {
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setYearLaunched(yearLauncher);
+        this.setDuration(duration);
+        this.setCategories(categories);
+        this.setGenres(genres);
+        this.setCastMembers(castMembers);
+
+        return this;
     }
 }
