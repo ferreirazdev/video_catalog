@@ -11,7 +11,7 @@ public class BaseEntity {
     }
 
     public void setId(UUID id) {
-        if (id == null) throw new IllegalArgumentException("");
+        if (id == null) throw new IllegalArgumentException("id is marked non-null but is null");
         if (!this.isValidUUID(id.toString())) throw new IllegalArgumentException("");
         this.id = id;
     }
