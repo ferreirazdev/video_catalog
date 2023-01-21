@@ -62,7 +62,6 @@ public class CastMember extends BaseEntity {
     }
 
     
-
     public CastMemberType getType() {
         return this.type;
     }
